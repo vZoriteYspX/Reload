@@ -8,3 +8,7 @@ Unfortunately, the person who told me that does not remember what the name was.
 Back when I was in grade 2, the game became popular and it remained popular among my batch until the Covid pandemic struck.
 
 Anyways, this is my recreation of the game. I no longer remember the exact rules but I'll try my best to preserve the original as much as possible.
+
+Further Reading
+
+https://www.reddit.com/r/malaysia/comments/sqmas8/any_of_you_know_where_the_hand_game_often_called/
