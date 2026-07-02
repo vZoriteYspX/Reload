@@ -8,14 +8,14 @@ namespace Game
     {
         public bool startGame;
         public bool turnCondition;
-        public int gameTurns = 0;
+        public int gameTurns = 1;
         static void Main(string[] args)
         {
-            Console.WriteLine("Start game?");
-            string userInput0 = Console.ReadLine().ToLower();
-            if (userInput0 == "yes")
+            Console.WriteLine("Start game? [YES / NO]");
+            string userInput0 = Console.ReadLine().ToUpper();
+            if (userInput0 == "YES")
             {
-                MatchProgress gameStart = new(true);
+                Gameplay gameStart = new(true);
             }
         }
     }
@@ -33,21 +33,36 @@ namespace Game
     }
 
 
-    public class MatchProgress : MainProgram
+    public class Gameplay : MainProgram
     {
         public bool turnStart;
-        public MatchProgress(bool startGame)
+        public int player1Lives = 1;
+        public int player2Lives = 1;
+        public bool successfulDef;
+        public Gameplay(bool startGame)
         {
-            Player1 player1 = new Player1();
-            while (startGame)
+            this.startGame = startGame;
+            Player1 player1 = new();
+            Player2 player2 = new();
+            Console.WriteLine("----------------------------");
+            Console.WriteLine($"Turn {gameTurns}");
+            while (this.startGame)
             {
                 turnStart = true;
+                Console.WriteLine("Player 1, what will be your next move?");
                 Console.WriteLine("----------------------------");
-                Console.WriteLine("What will be your next move?");
+                string userInput1 = Console.ReadLine().ToUpper();
+                Console.WriteLine("Player 2, what will be your next move?");
                 Console.WriteLine("----------------------------");
-                string userInput1 = Console.ReadLine().ToLower();
-                gameTurns++;
-                player1.TakeTurn(userInput1, this);
+                string userInput2 = Console.ReadLine().ToUpper();
+                bool validTurnChecker1 = player1.TakeTurn(userInput1, this);
+                bool validTurnChecker2 = player2.TakeTurn(userInput2, this);
+                if (validTurnChecker1 && validTurnChecker2)
+                {
+                    gameTurns++;
+                    Console.WriteLine($"----------------------------");
+                    Console.WriteLine($"Round {gameTurns}");
+                }
             }
         }
     }
@@ -55,114 +70,199 @@ namespace Game
 
     public class MoveUsed : Charges
     {
-        public const string chargeMove = "charge";
-        public const string teleportMove = "teleport";
-        public const string vanishMove = "vanish";
-        public const string shieldMove = "shield";
-        public const string barrierMove = "barrier";
-        public const string nukeBarrierMove = "nuke barrier";
-        public const string bangMove = "bang";
-        public const string dMove = "d";
+        public const string chargeMove = "CHARGE";
+        public const string teleportMove = "TELEPORT";
+        public const string vanishMove = "VANISH";
+        public const string shieldMove = "SHIELD";
+        public const string barrierMove = "BARRIER";
+        public const string nukeBarrierMove = "NUKE BARRIER";
+        public const string bangMove = "BANG";
+        public const string dMove = "D";
     }
 
 
     public class Player1 : Charges
     {
-        public void TakeTurn(string userInput1, MatchProgress match)
+        public bool TakeTurn(string userInput1, Gameplay match)
         {
             switch(userInput1)
             {
-                case "charge":
+                case "CHARGE":
                 {
                     p1Charge += 1;
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.chargeMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "teleport":
+                case "TELEPORT":
                 {
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.teleportMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "vanish":
+                case "VANISH":
                 {
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.vanishMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "shield":
+                case "SHIELD":
                 {
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.shieldMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "barrier":
+                case "BARRIER":
                 {
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.barrierMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "nuke barrier":
+                case "NUKE BARRIER":
                 {
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.nukeBarrierMove} for {defCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "bang" when p1Charge >= halfCharge:
-                {
-                    if (p1Charge % 1 == 0)
-                    {
-                        p1Charge = p1Charge - halfCharge;
-                    }
-                    
-                    else
-                    {
-                        p1Charge -= halfCharge;    
-                    }
+                case "BANG" when p1Charge >= halfCharge:
+                {   
+                    p1Charge = p1Charge - halfCharge;
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.bangMove} for {halfCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "bang" when p1Charge < halfCharge:
+                case "BANG" when p1Charge < halfCharge:
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("You currently do not have enough charges to perform this move.");
+                    Console.WriteLine("Insufficient charges.");
                     Console.WriteLine("----------------------------");
-                    match.turnStart = false;
-                    break;
+                    return false;
                 }        
 
-                case "d" when p1Charge >= halfCharge:
+                case "D" when p1Charge >= halfCharge:
                 {
-                    if (p1Charge % 1 == 0)
-                    {
-                        p1Charge = (int)(p1Charge - halfCharge);
-                    }
-                    
-                    else
-                    {
-                        p1Charge -= halfCharge;    
-                    }
+                    p1Charge = p1Charge - halfCharge;
+                    Console.WriteLine("----------------------------");
                     Console.WriteLine($"Player 1 used {MoveUsed.dMove} for {halfCharge} charge(s)!");
-                    match.turnStart = false;
-                    break;
+                    return true;
                 }
 
-                case "d" when p1Charge < halfCharge:
+                case "D" when p1Charge < halfCharge:
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("You currently do not have enough charges to perform this move.");
+                    Console.WriteLine("Insufficient charges.");
+                    Console.WriteLine("----------------------------");
+                    return false;
+                }  
+
+                default:
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("An invalid input was provided.");
+                    Console.WriteLine("----------------------------");
+                    return false;
+                }
+            }
+        }
+    }
+
+
+    public class Player2 : Charges
+    {
+        public bool TakeTurn(string userInput2, Gameplay match)
+        {
+            switch(userInput2)
+            {
+                case "CHARGE":
+                {
+                    p1Charge += 1;
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.chargeMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "TELEPORT":
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.teleportMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "VANISH":
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.vanishMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "SHIELD":
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.shieldMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "BARRIER":
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.barrierMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "NUKE BARRIER":
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.nukeBarrierMove} for {defCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "BANG" when p1Charge >= halfCharge:
+                {   
+                    p1Charge = p1Charge - halfCharge;
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.bangMove} for {halfCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "BANG" when p1Charge < halfCharge:
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("Insufficient charges.");
                     Console.WriteLine("----------------------------");
                     match.turnStart = false;
-                    break;
+                    return false;
+                }        
+
+                case "D" when p1Charge >= halfCharge:
+                {
+                    p1Charge = p1Charge - halfCharge;
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Player 2 used {MoveUsed.dMove} for {halfCharge} charge(s)!");
+                    match.turnStart = false;
+                    return true;
+                }
+
+                case "D" when p1Charge < halfCharge:
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("Insufficient charges.");
+                    Console.WriteLine("----------------------------");
+                    match.turnStart = false;
+                    return false;
                 }  
 
                 default:
@@ -171,7 +271,7 @@ namespace Game
                     Console.WriteLine("An invalid input was provided.");
                     Console.WriteLine("----------------------------");
                     match.turnStart = false;
-                    break;
+                    return false;
                 }
             }
         }
