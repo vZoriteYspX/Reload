@@ -31,7 +31,7 @@ The list of defensive moves are as follows:
 - Nuke Barrier
 
 
-Fact: Despite "charge" leaving you or your opponents vulnerable to oncoming attacks, the code treats it as a defensive move.\
+Fact: Despite "charge" leaving you or your opponents vulnerable to oncoming attacks, the code treats it as a defensive move.
 
 
 __What are half-charge moves?__\
@@ -64,7 +64,7 @@ The list of two-charge moves are as follows:
 - DX-Bang-Bang
 
 
-It is also worth noting that DX-Bang-Bang requires a valid target when used. Homing and Hit, when used, will attack everyone except its user.\
+It is also worth noting that DX-Bang-Bang requires a valid target when used. Homing and Hit, when used, will attack everyone except its user.
 
 __What are three-charge moves?__\
 Three-charge moves are a type of offensive move that requires three charges to perform.
@@ -87,7 +87,7 @@ It is also worth nothing that both moves will attack everyone except its user.
 
 
 __Isn't A-Bomb a specific type of nuke? Why are they different in the game?__\
-To be honest, I do not know why it is like that either. Besides, I didn't make that decision. I'm just following the game's rules according to my memory.\
+To be honest, I do not know why it is like that either. Besides, I didn't make that decision. I'm just following the game's rules according to my memory.
 
 
 __Why does it say that I have an invalid input when I perform certain moves?__\
@@ -99,7 +99,7 @@ In the original game, the person you are targeting is treated as vulnerable to a
 
 
 __What happens when two or more players use the same charge move against each other?__\
-Nothing will happen to the players who performed those moves. Other players will still have to defend against each and every attack though if any of the moves affect everyone.\
+Nothing will happen to the players who performed those moves. Other players will still have to defend against each and every attack though if any of the moves affect everyone.
 
 
 __What does each move do exactly?__
