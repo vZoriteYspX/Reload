@@ -1,15 +1,15 @@
 # Gameplay FAQs
 
 __What is the objective of the game?__\
-Your goal is to eliminate all your opponents and be the last player standing in this rock-paper-scissors-style game!\
+Your goal is to eliminate all your opponents and be the last player standing in this rock-paper-scissors-style game!
 
 
 __Are the user inputs case sensitive?__\
-No, they are not. Every char and string input is completely converted into uppercase.\
+No, they are not. Every char and string input is completely converted into uppercase.
 
 
 __What type of moves can I make?__\
-Aside from charge and forfeit, there are four categories of moves that you can make:\
+Aside from charge and forfeit, there are four categories of moves that you can make:
 - Defensive Moves
 - Half-charge Moves
 - One-charge Moves
@@ -18,12 +18,12 @@ Aside from charge and forfeit, there are four categories of moves that you can m
 - Four-charge Moves
 
 
-Currently, there is only one half-charge and three-charge moves available.\
+Currently, there is only one half-charge and three-charge moves available.
 
 
 __What are defensive moves?__\
 Defensive moves are moves that you make to block, and sometimes reflect oncoming attacks.\
-The list of defensive moves are as follows:\
+The list of defensive moves are as follows:
 - Teleport
 - Vanish
 - Shield
@@ -32,22 +32,22 @@ The list of defensive moves are as follows:\
 
 
 Fact: Despite "charge" leaving you or your opponents vulnerable to oncoming attacks, the code treats it as a defensive move.\
-\
+
 
 __What are half-charge moves?__\
 Half-charge moves are a type of offensive move that requires half a charge to perform.\
-Additionally, these moves require a valid target when used.\
+Additionally, these moves require a valid target when used.
 
 
-Currently, there is only one half-charge move in this iteration of the game which is "Bang".\
+Currently, there is only one half-charge move in this iteration of the game which is "Bang".
 
 
 __What are one-charge moves?__\
 One-charge moves are a type of offensive move that requires a charge to perform.\
-Additionally, these moves require a valid target when used.\
+Additionally, these moves require a valid target when used.
 
 
-The list of one-charge moves are as follows:\
+The list of one-charge moves are as follows:
 - Mini-Ho
 - Mini-Hit
 - DX
@@ -55,10 +55,10 @@ The list of one-charge moves are as follows:\
 
 
 __What are two-charge moves?__\
-Two-charge moves are a type of offensive move that requires two charges to perform.\
+Two-charge moves are a type of offensive move that requires two charges to perform.
 
 
-The list of two-charge moves are as follows:\
+The list of two-charge moves are as follows:
 - Homing
 - Hit
 - DX-Bang-Bang
@@ -67,23 +67,23 @@ The list of two-charge moves are as follows:\
 It is also worth noting that DX-Bang-Bang requires a valid target when used. Homing and Hit, when used, will attack everyone except its user.\
 
 __What are three-charge moves?__\
-Three-charge moves are a type of offensive move that requires three charges to perform.\
+Three-charge moves are a type of offensive move that requires three charges to perform.
 
 
 Currently, there is only one three-charge move in this iteration of the game which is "A-Bomb".\
-It is also worth noting that when used, "A-Bomb" will attack everyone except its user.\
+It is also worth noting that when used, "A-Bomb" will attack everyone except its user.
 
 
-__What are four-charge moves__\
-Four-charge moves are a type of offensive move that requires four charges to perform.\
+__What are four-charge moves?__\
+Four-charge moves are a type of offensive move that requires four charges to perform.
 
 
-The list of four-charge moves are as follows:\
+The list of four-charge moves are as follows:
 - Hit-Homing
 - Nuke
 
 
-It is also worth nothing that both moves will attack everyone except its user.\
+It is also worth nothing that both moves will attack everyone except its user.
 
 
 __Isn't A-Bomb a specific type of nuke? Why are they different in the game?__\
@@ -91,18 +91,18 @@ To be honest, I do not know why it is like that either. Besides, I didn't make t
 
 
 __Why does it say that I have an invalid input when I perform certain moves?__\
-Currently, the game only accepts character-for-character inputs. So yes, you need to include the hyphen.\
+Currently, the game only accepts character-for-character inputs. So yes, you need to include the hyphen.
 
 
 __What will happen to the person that I target if they are targeting a different player?__\
-In the original game, the person you are targeting is treated as vulnerable to any attack. However, I forgot to code that. Whoops.\
+In the original game, the person you are targeting is treated as vulnerable to any attack. However, I forgot to code that. Whoops.
 
 
 __What happens when two or more players use the same charge move against each other?__\
 Nothing will happen to the players who performed those moves. Other players will still have to defend against each and every attack though if any of the moves affect everyone.\
 
 
-__What does each move do exactly?__\
+__What does each move do exactly?__
 - Forfeit: The move's user forfeits the game.
 - Charge: The move's user gains one more charge. This also leaves the player vulnerable to any attack.
 
