@@ -1,3 +1,3 @@
 # READ ME
 
-VSCode was used to install C# alongside the .NET Install Tool.\
+VSCode was used to install C# alongside the .NET Install Tool.
