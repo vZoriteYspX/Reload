@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Game
+namespace ReloadGame
 {
-
-
     public class MainProgram
     {
         static void Main(string[] args)
@@ -20,29 +18,14 @@ namespace Game
         {
             while (true)
             {
+                char startInput;
+
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("Start game? [Y / N]");
-                Console.WriteLine("----------------------------");
 
                 try
                 {
-                    char startInput = Convert.ToChar((Console.ReadLine() ?? "").ToUpper());
-                    
-                    if (startInput == 'Y')
-                    {
-                        Console.WriteLine("Have fun! You are now proceeding to the game's setup.");
-                        Gameplay gameStart = new(true);
-                        break;
-                    }
-
-                    else if (startInput == 'N')
-                    {
-                        Console.WriteLine("See you again next time!");
-                        break;
-                    }
-                    
-                    else
-                        Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" when starting the game.");
+                    startInput = Convert.ToChar((Console.ReadLine() ?? "").ToUpper());
                 }
 
                 catch (Exception e)
@@ -51,10 +34,46 @@ namespace Game
                     Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" when starting the game.");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{e.Message}");
+                    continue;
+                }
+
+                if (startInput == 'Y')
+                {
+                    Console.WriteLine("Have fun! You are now proceeding to the game's setup.");
+                    Console.WriteLine("----------------------------");
+
+                    try
+                    {
+                        Gameplay gameStart = new(true);
+                    }
+                        
+                    catch
+                    {
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine("Oops, something went wrong with the game.");
+                        Console.WriteLine("----------------------------");
+                        
+                    }
+
+                    break;
+                }
+
+                else if (startInput == 'N')
+                {   
+                    Console.WriteLine("See you again next time!");
+                    break;
+                }
+                    
+                else
+                {
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" when starting the game.");
+                    Console.WriteLine("----------------------------");
                 }
             }
         }
     }
+
 
     public class Gameplay
     {
@@ -69,8 +88,8 @@ namespace Game
         public int playerMovesTracker = 0;
         public List<string> movesMade = new();
         public List<Player> players = new();
-        public List<Player> targets = new();
         public List<Player> eliminated = new();
+        public Dictionary<Player, Player> targetsDict = new();
         public Dictionary<Player, string> playerForfeit = new Dictionary<Player, string>();
         public Dictionary<Player, string> attributesDefDict = new Dictionary<Player, string>();
         public Dictionary<Player, string> attributesHalfDict = new Dictionary<Player, string>();
@@ -84,7 +103,7 @@ namespace Game
         {
             this.startGame = startGame;
             int playerCount;
-
+            
 
             // PLAYER COUNT INPUT
             Console.WriteLine("How many players will be playing?");
@@ -94,13 +113,13 @@ namespace Game
                 {
                     playerCount = Convert.ToInt32(Console.ReadLine());
 
-                    if (playerCount <= 1)
+                    if (playerCount < 1)
                     {
                         Console.WriteLine("Player count must at least be 1.");
                             continue;
                     }
 
-                    Console.WriteLine($"Players playing in this session: {playerCount}");
+                    Console.WriteLine($"Players playing in this session: {playerCount} Players");
                     break;
                 }
 
@@ -140,14 +159,25 @@ namespace Game
             //  ACTUAL GAMEPLAY
             while (this.startGame)
             {
+                movesMade.Clear();
+                targetsDict.Clear();
+                playerForfeit.Clear();
+                attributesDefDict.Clear();
+                attributesHalfDict.Clear();
+                attributesOneDict.Clear();
+                attributesTwoDict.Clear();
+                attributesThreeDict.Clear();
+                attributesFourDict.Clear();
 
+                decisionsTracker = 0;
+                playerMovesTracker = 0;
+                
 
                 // PLAYER DECISION
                 foreach (Player player in players)
                 {
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{player.playerName}, what will be your move?");
-                    Console.WriteLine("----------------------------");
                     
                     try
                     {
@@ -169,8 +199,27 @@ namespace Game
                         Console.WriteLine($"{e.Message}");
                         Console.WriteLine("----------------------------");  
                     }
+                }
+
+
+                // END OF A TURN
+                if (decisionsTracker == players.Count)
+                    turnEnd = true;
+
+
+                // VALID TURNS
+                if (turnEnd)
+                {
+                    gameTurns++;
                     
+                    foreach (Player player in players)
+                    {
+                        player.EndTurn(this, movesMade[playerMovesTracker]);
+                        playerMovesTracker++;
+                    }
                     
+                    AttackPhase.Elimination(this);
+                    turnEnd = false;
                 }
 
 
@@ -190,31 +239,13 @@ namespace Game
                     break;
                 }
 
+                Console.WriteLine("----------------------------");
+                Console.WriteLine($"Turn {gameTurns}");
 
-                // END OF A TURN
-                if (decisionsTracker == players.Count)
-                    turnEnd = true;
-
-
-                // VALID TURNS
-                if (turnEnd)
-                {
-                    gameTurns++;
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine($"Turn {gameTurns}");
-                    foreach (Player player in players)
-                    {
-                        player.EndTurn(this, movesMade[playerMovesTracker]);
-                        playerMovesTracker++;
-                    }
-        
-                    turnEnd = false;
-                    decisionsTracker = 0;
-                    playerMovesTracker = 0;
-                }
-            }            
+            }    
         }
     }
+
 
     public class Player
     {
@@ -228,6 +259,8 @@ namespace Game
             Console.WriteLine($"{playerName} has just entered the game!");
         }
 
+
+        //  CHECKS MOVE INPUT
         public bool TakeTurn(Gameplay match, string moveInput)
         {
             switch (moveInput) 
@@ -276,8 +309,7 @@ namespace Game
 
                 case "BANG" when playerCharge >= 0.5f:
                 {
-                    match.attributesHalfDict[this] = "BANG";
-                    return true;
+                    return HalfChargeAttack(match, "BANG", moveInput);
                 }      
 
                 case "MINI-HO" when playerCharge >= 1f:
@@ -339,12 +371,62 @@ namespace Game
             }
         }
 
+
+        //  HALF CHARGE VALIDITY
+        private bool HalfChargeAttack(Gameplay match, string halfCharge, string moveInput)
+        {
+            match.attributesHalfDict[this] = halfCharge;
+
+            try
+            {
+                Console.WriteLine("Please input your target's username.");
+                string? target = Convert.ToString(Console.ReadLine());
+
+                while (string.IsNullOrWhiteSpace(target))
+                {
+                    Console.WriteLine("Please input your target's username.");
+                    target =  Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("Your target cannot be blank!");
+                }
+            
+                Player? validTarget = match.players.Find(p => p.playerName == target);
+
+                if (validTarget == null)
+                {
+                    Console.WriteLine("An invalid input was entered. Please input a player's username.");
+                    return false;
+                }
+
+                if (validTarget == this)
+                {
+                    Console.WriteLine("You cannot attack yourself! Please select a valid player!");
+                    return false;
+                }
+
+                match.targetsDict[this] = validTarget;
+
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("----------------------------");
+                Console.WriteLine("An invalid input was entered. Please input a player's username.");
+                Console.WriteLine("----------------------------");
+                Console.WriteLine($"{e.Message}");
+                return false;
+            }
+        }
+
+
+        //  ONE CHARGE VALIDITY
         private bool OneChargeAttack(Gameplay match, string oneCharge, string moveInput)
         {
             match.attributesOneDict[this] = oneCharge;
 
             try
             {
+                Console.WriteLine("Please input your target's username.");
                 string? target = Convert.ToString(Console.ReadLine());
 
                 while (string.IsNullOrWhiteSpace(target))
@@ -368,7 +450,8 @@ namespace Game
                     return false;
                 }
 
-                AttackPhase begin = new(match, validTarget, moveInput);
+                match.targetsDict[this] = validTarget;
+                
                 return true;
             }
 
@@ -382,6 +465,8 @@ namespace Game
             }
         }
 
+
+        //  END OF TURN
         public void EndTurn(Gameplay match, string moveInput)
         {
 
@@ -449,8 +534,7 @@ namespace Game
                     playerCharge -= 0.5f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used BANG for 0.5 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -459,8 +543,7 @@ namespace Game
                     playerCharge -= 1f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used MINI-HO for 1 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -469,8 +552,7 @@ namespace Game
                     playerCharge -= 1f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used MINI-HIT for 1 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -479,8 +561,7 @@ namespace Game
                     playerCharge -= 1f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used DX for 1 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -489,8 +570,7 @@ namespace Game
                     playerCharge -= 1f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used BANG-BANG for 1 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -500,7 +580,6 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used HOMING for 2 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
 
@@ -510,7 +589,6 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used HIT for 2 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
 
@@ -520,7 +598,6 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used DX-BANG-BANG for 2 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
 
@@ -530,7 +607,6 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used A-BOMB for 3 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
 
@@ -540,7 +616,6 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used HIT-HOMING for 4 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
 
@@ -550,12 +625,12 @@ namespace Game
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used NUKE for 4 charge(s)!");
                     AttackPhase begin = new(match, moveInput);
-                    begin.Elimination();
                     break;
                 }
             }
         }
     }
+
 
     public class AttackPhase
     {
@@ -563,11 +638,19 @@ namespace Game
         public Player? target;
         public string move;
         public AttackPhase(Gameplay match, string move) : this(match, null, move) { }
+
+
+        //  MOVE PROCESSING
         public AttackPhase(Gameplay match, Player? target, string move)
         {   
             this.match = match;
             this.target = target;
             this.move = move;
+            Player? targetPlayer = target;
+            bool targetMoves = move is "MINI-HO" or "MINI-HIT" or "DX" or "BANG-BANG" or "BANG";
+
+            if (targetMoves && target is null)
+                throw new InvalidOperationException($"'{move}' requires a target, but none was provided.");
 
             foreach (Player usernameFour in match.attributesFourDict.Keys)
             {
@@ -577,7 +660,7 @@ namespace Game
                     {   
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] == "TELEPORT")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHitHoming) && defHitHoming == "TELEPORT")
                                 match.attributesFourDict[usernameFour] = "ELIMINATED";
 
                             else
@@ -603,7 +686,7 @@ namespace Game
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] != "NUKE BARRIER")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defNuke) && defNuke != "NUKE BARRIER")
                                 match.eliminated.Add(usernameDef);
                         }
                                 
@@ -632,7 +715,7 @@ namespace Game
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] != "VANISH")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defABomb) && defABomb != "VANISH")
                                 match.eliminated.Add(usernameDef);
                         }
 
@@ -658,7 +741,7 @@ namespace Game
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] == "TELEPORT")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHoming) && defHoming == "TELEPORT")
                                 match.eliminated.Add(usernameDef);
 
                             else
@@ -678,10 +761,10 @@ namespace Game
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] == "TELEPORT")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHit1) && defHit1 == "TELEPORT")
                                 match.attributesTwoDict[usernameTwo] = "ELIMINATED";
 
-                            else if (match.attributesDefDict[usernameDef] == "VANISH")
+                            else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHit2) && defHit2 == "VANISH")
                                 match.eliminated.Add(usernameDef);
 
                             else
@@ -701,7 +784,7 @@ namespace Game
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict[usernameDef] == "SHIELD" || match.attributesDefDict[usernameDef] == "BARRIER")
+                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDXBangBang) && (defDXBangBang == "SHIELD" || defDXBangBang == "BARRIER"))
                                 match.eliminated.Add(usernameDef);
 
                             else
@@ -720,16 +803,13 @@ namespace Game
             }
 
             foreach (Player usernameOne in match.attributesOneDict.Keys)
-            {
-                if (target is null)
-                        throw new InvalidOperationException($"'{move}' requires a target, but none was provided.");
-                
-                switch (move, target)
+            {           
+                switch (move, targetPlayer)
                 {
                     case ("MINI-HO", _):
                     {
-                        if (match.attributesDefDict[target] == "TELEPORT")
-                            match.eliminated.Add(target);
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHo) && defMiniHo == "TELEPORT")
+                            match.eliminated.Add(targetPlayer!);
 
                         else
                             continue;
@@ -742,11 +822,11 @@ namespace Game
 
                     case ("MINI-HIT", _):
                     {
-                        if (match.attributesDefDict[target] == "TELEPORT")
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit1) && defMiniHit1 == "TELEPORT")
                             match.attributesOneDict[usernameOne] = "ELIMINATED";
 
-                        else if (match.attributesDefDict[target] == "VANISH")
-                            match.eliminated.Add(target);
+                        else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit2) && defMiniHit2 == "VANISH")
+                            match.eliminated.Add(targetPlayer!);
 
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
                             match.eliminated.Add(usernameHalf);
@@ -756,8 +836,8 @@ namespace Game
 
                     case ("DX", _):
                     {
-                        if (match.attributesDefDict[target] == "SHIELD")
-                            match.eliminated.Add(target);
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDX) && defDX == "SHIELD")
+                            match.eliminated.Add(targetPlayer!);
                         
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
                             match.eliminated.Add(usernameHalf);
@@ -767,8 +847,8 @@ namespace Game
                     
                     case ("BANG-BANG", _):
                     {
-                        if (match.attributesDefDict[target] == "BARRIER")
-                            match.eliminated.Add(target);
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBangBang) && defBangBang == "BARRIER")
+                            match.eliminated.Add(targetPlayer!);
                         
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
                             match.eliminated.Add(usernameHalf);
@@ -779,20 +859,21 @@ namespace Game
             }
 
             foreach (Player usernameHalf in match.attributesHalfDict.Keys)
-            {
-                if (target is null)
-                        throw new InvalidOperationException($"'{move}' requires a target, but none was provided.");
-                
-                switch(move)
+            {  
+                switch(move, targetPlayer!)
                 {
-                    case "BARRIER":
-                        match.eliminated.Add(target);
+                    case ("BANG", _):
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBang) && (defBang == "BARRIER" || defBang == "CHARGE"))
+                            match.eliminated.Add(targetPlayer!);
+                    
                     break;
                 }             
             }
         }
 
-        public void Elimination()
+
+        // ELIMINATION PROPER
+        public static void Elimination(Gameplay match)
         {
             foreach (Player usernameForfeit in match.playerForfeit.Keys)
                     match.players.Remove(usernameForfeit);
@@ -840,6 +921,11 @@ namespace Game
             }
 
             match.attributesFourDict.Clear();
+
+            foreach (Player eliminatedPlayer in match.eliminated)
+                match.players.Remove(eliminatedPlayer);
+            
+            match.eliminated.Clear();
         }
     }
 }
