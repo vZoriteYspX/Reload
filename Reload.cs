@@ -339,7 +339,7 @@ namespace ReloadGame
                 case "DX-BANG-BANG" when playerCharge >= 2f:
                 {
                     match.attributesTwoDict[this] = "DX-BANG-BANG";
-                    return true;
+                    return TwoChargeAttack(match, "DX-BANG-BANG", moveInput);
                 }
 
                 case "A-BOMB" when playerCharge >= 3f:
@@ -423,6 +423,53 @@ namespace ReloadGame
         private bool OneChargeAttack(Gameplay match, string oneCharge, string moveInput)
         {
             match.attributesOneDict[this] = oneCharge;
+
+            try
+            {
+                Console.WriteLine("Please input your target's username.");
+                string? target = Convert.ToString(Console.ReadLine());
+
+                while (string.IsNullOrWhiteSpace(target))
+                {
+                    Console.WriteLine("Please input your target's username.");
+                    target =  Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("Your target cannot be blank!");
+                }
+
+                Player? validTarget = match.players.Find(p => p.playerName == target);
+
+                if (validTarget == null)
+                {
+                    Console.WriteLine("An invalid input was entered. Please input a player's username.");
+                    return false;
+                }
+
+                if (validTarget == this)
+                {
+                    Console.WriteLine("You cannot attack yourself! Please select a valid player!");
+                    return false;
+                }
+
+                match.targetsDict[this] = validTarget;
+                
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("----------------------------");
+                Console.WriteLine("An invalid input was entered. Please input a player's username.");
+                Console.WriteLine("----------------------------");
+                Console.WriteLine($"{e.Message}");
+                return false;
+            }
+        }
+
+
+        //  TWO CHARGE VALIDITY
+        private bool TwoChargeAttack(Gameplay match, string twoCharge, string moveInput)
+        {
+            match.attributesTwoDict[this] = twoCharge;
 
             try
             {
@@ -597,7 +644,7 @@ namespace ReloadGame
                     playerCharge -= 2f;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{playerName} used DX-BANG-BANG for 2 charge(s)!");
-                    AttackPhase begin = new(match, moveInput);
+                    AttackPhase begin = new(match, match.targetsDict[this], moveInput);
                     break;
                 }
 
@@ -647,7 +694,7 @@ namespace ReloadGame
             this.target = target;
             this.move = move;
             Player? targetPlayer = target;
-            bool targetMoves = move is "MINI-HO" or "MINI-HIT" or "DX" or "BANG-BANG" or "BANG";
+            bool targetMoves = move is "DX-BANG-BANG" or "MINI-HO" or "MINI-HIT" or "DX" or "BANG-BANG" or "BANG";
 
             if (targetMoves && target is null)
                 throw new InvalidOperationException($"'{move}' requires a target, but none was provided.");
@@ -779,23 +826,20 @@ namespace ReloadGame
 
                         break;
                     }
+                }
+            }
 
-                    case "DX-BANG-BANG":
+            foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+            {
+                switch (move, targetPlayer)
+                {
+                    case ("DX-BANG-BANG", _):
                     {
-                        foreach (Player usernameDef in match.attributesDefDict.Keys)
-                        {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDXBangBang) && (defDXBangBang == "SHIELD" || defDXBangBang == "BARRIER"))
-                                match.eliminated.Add(usernameDef);
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDXBangBang) && (defDXBangBang == "CHARGE" || defDXBangBang == "SHIELD" || defDXBangBang == "BARRIER" || defDXBangBang == "NUKE BARRIER" || defDXBangBang == "BANG" || defDXBangBang == "MINI-HO" || defDXBangBang == "MINI-HIT" || defDXBangBang == "DX" || defDXBangBang == "BANG-BANG"))
+                            match.eliminated.Add(targetPlayer!);
 
-                            else
-                                continue;
-                        }
-
-                        foreach (Player usernameHalf in match.attributesHalfDict.Keys)
-                            match.eliminated.Add(usernameHalf);
-                        
-                        foreach (Player usernameOne in match.attributesOneDict.Keys)
-                            match.eliminated.Add(usernameOne);
+                        else
+                            continue;
 
                         break;
                     }
@@ -808,7 +852,7 @@ namespace ReloadGame
                 {
                     case ("MINI-HO", _):
                     {
-                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHo) && defMiniHo == "TELEPORT")
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHo) && (defMiniHo == "CHARGE" || defMiniHo == "TELEPORT" || defMiniHo == "NUKE BARRIER"))
                             match.eliminated.Add(targetPlayer!);
 
                         else
@@ -825,7 +869,7 @@ namespace ReloadGame
                         if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit1) && defMiniHit1 == "TELEPORT")
                             match.attributesOneDict[usernameOne] = "ELIMINATED";
 
-                        else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit2) && defMiniHit2 == "VANISH")
+                        else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit2) && (defMiniHit2 == "CHARGE" || defMiniHit2 == "VANISH" || defMiniHit2 == "NUKE BARRIER"))
                             match.eliminated.Add(targetPlayer!);
 
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
@@ -836,7 +880,7 @@ namespace ReloadGame
 
                     case ("DX", _):
                     {
-                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDX) && defDX == "SHIELD")
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDX) && (defDX == "CHARGE" || defDX == "SHIELD" || defDX == "NUKE BARRIER"))
                             match.eliminated.Add(targetPlayer!);
                         
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
@@ -847,7 +891,7 @@ namespace ReloadGame
                     
                     case ("BANG-BANG", _):
                     {
-                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBangBang) && defBangBang == "BARRIER")
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBangBang) && (defBangBang == "CHARGE" || defBangBang == "BARRIER" || defBangBang == "NUKE BARRIER"))
                             match.eliminated.Add(targetPlayer!);
                         
                         foreach (Player usernameHalf in match.attributesHalfDict.Keys)
@@ -863,7 +907,7 @@ namespace ReloadGame
                 switch(move, targetPlayer!)
                 {
                     case ("BANG", _):
-                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBang) && (defBang == "BARRIER" || defBang == "CHARGE"))
+                        if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBang) && (defBang == "CHARGE" || defBang == "BARRIER" || defBang == "NUKE BARRIER"))
                             match.eliminated.Add(targetPlayer!);
                     
                     break;
