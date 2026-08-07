@@ -13,7 +13,7 @@ __How many charges do each player start with?__
 Each player gets a single charge at the start of each match.  
 
 -------------------------------------------------------  
-__What type of moves can I make?__\
+__What type of moves can I make?__  
 Aside from charge and forfeit, there are four categories of moves that you can make:
 - Defensive Moves
 - Half-charge Moves
@@ -21,30 +21,27 @@ Aside from charge and forfeit, there are four categories of moves that you can m
 - Two-charge Moves
 - Three-charge Moves
 - Four-charge Moves
+  
+Currently, there is only one half-charge and three-charge moves available.  
 
-Currently, there is only one half-charge and three-charge moves available.\
--------------------------------------------------------
-
--------------------------------------------------------\
-__What are defensive moves?__\
-Defensive moves are moves that you make to block, and sometimes reflect oncoming attacks.\
+-------------------------------------------------------  
+__What are defensive moves?__  
+Defensive moves are moves that you make to block, and sometimes reflect oncoming attacks.  
 The list of defensive moves are as follows:
 - Teleport
 - Vanish
 - Shield
 - Barrier
 - Nuke Barrier
+  
+Fact: Despite "charge" leaving you or your opponents vulnerable to oncoming attacks, the code treats it as a defensive move.  
 
-Fact: Despite "charge" leaving you or your opponents vulnerable to oncoming attacks, the code treats it as a defensive move.\
--------------------------------------------------------
-
--------------------------------------------------------\
-__What are half-charge moves?__\
-Half-charge moves are a type of offensive move that requires half a charge to perform.\
-Additionally, these moves require a valid target when used.\
-
+-------------------------------------------------------  
+__What are half-charge moves?__  
+Half-charge moves are a type of offensive move that requires half a charge to perform.  
+Additionally, these moves require a valid target when used.  
+  
 Currently, there is only one half-charge move in this iteration of the game which is "Bang".\
--------------------------------------------------------
 
 -------------------------------------------------------\
 __What are one-charge moves?__\
