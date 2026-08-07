@@ -1,9 +1,9 @@
 # Gameplay FAQs
 
--------------------------------------------------------
-__What is the objective of the game?__\
-Your goal is to eliminate all your opponents and be the last player standing in this rock-paper-scissors-style game!\
--------------------------------------------------------
+-------------------------------------------------------  
+__What is the objective of the game?__  
+Your goal is to eliminate all your opponents and be the last player standing in this rock-paper-scissors-style game!  
+-------------------------------------------------------  
 
 -------------------------------------------------------\
 __Are the user inputs case sensitive?__\
