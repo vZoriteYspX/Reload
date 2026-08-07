@@ -84,8 +84,8 @@ namespace ReloadGame
         // TRACKERS
         public bool turnEnd = false;
         public int gameTurns = 1;
-        public int decisionsTracker = 0;
-        public int playerMovesTracker = 0;
+        public int decisionsTracker;
+        public int playerMovesTracker;
         public List<string> movesMade = new();
         public List<Player> players = new();
         public List<Player> eliminated = new();
@@ -148,12 +148,7 @@ namespace ReloadGame
                 }
 
                 players.Add(new Player(username));
-            }
-
-
-            // TURN 1 PRINT
-            Console.WriteLine("----------------------------");
-            Console.WriteLine($"Turn {gameTurns}");
+            }            
 
 
             //  ACTUAL GAMEPLAY
@@ -171,8 +166,13 @@ namespace ReloadGame
 
                 decisionsTracker = 0;
                 playerMovesTracker = 0;
-                
 
+
+                // TURNS OUTPUT
+                Console.WriteLine("----------------------------");
+                Console.WriteLine($"Turn {gameTurns}");
+
+                
                 // PLAYER DECISION
                 foreach (Player player in players)
                 {
@@ -238,10 +238,6 @@ namespace ReloadGame
                     Console.WriteLine("No one won!");
                     break;
                 }
-
-                Console.WriteLine("----------------------------");
-                Console.WriteLine($"Turn {gameTurns}");
-
             }    
         }
     }
