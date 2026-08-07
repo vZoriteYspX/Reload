@@ -109,6 +109,7 @@ __What does each move do exactly?__
 - Barrier: The move's user becomes immune to certain attack.
 - Nuke Barrier: The move's user becomes immune to nukes. This also leaves the player vulnerable to any other attack.
   
+  
 - Bang: The move's user eliminates players who have used "Charge" and "Barrier". This move requires a target.
   
 - Mini-Ho: The move's user eliminates players who have used "Charge", "Bang", "Teleport", and "Nuke Barrier". This move requires a target.
