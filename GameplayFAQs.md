@@ -4,17 +4,15 @@
 __What is the objective of the game?__  
 Your goal is to eliminate all your opponents and be the last player standing in this rock-paper-scissors-style game!   
 
--------------------------------------------------------\
-__Are the user inputs case sensitive?__\
-No, they are not. Every char and string input is completely converted into uppercase. The only exception to this however, is during targeting; they require a player's username character-for-character.\
--------------------------------------------------------
+-------------------------------------------------------  
+__Are the user inputs case sensitive?__  
+No, they are not. Every char and string input is completely converted into uppercase. The only exception to this however, is during targeting; they require a player's username character-for-character.  
 
--------------------------------------------------------\
-__How many charges do each player start with?__\
-Each player gets a single charge at the start of each match.\
--------------------------------------------------------
+-------------------------------------------------------  
+__How many charges do each player start with?__  
+Each player gets a single charge at the start of each match.  
 
--------------------------------------------------------\
+-------------------------------------------------------  
 __What type of moves can I make?__\
 Aside from charge and forfeit, there are four categories of moves that you can make:
 - Defensive Moves
