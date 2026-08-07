@@ -52,7 +52,6 @@ namespace ReloadGame
                         Console.WriteLine("----------------------------");
                         Console.WriteLine("Oops, something went wrong with the game.");
                         Console.WriteLine("----------------------------");
-                        
                     }
 
                     break;
