@@ -148,7 +148,7 @@ namespace ReloadGame
                 }
 
                 players.Add(new Player(username));
-            }            
+            }
 
 
             //  ACTUAL GAMEPLAY
@@ -166,13 +166,10 @@ namespace ReloadGame
 
                 decisionsTracker = 0;
                 playerMovesTracker = 0;
-
-
-                // TURNS OUTPUT
+                
                 Console.WriteLine("----------------------------");
                 Console.WriteLine($"Turn {gameTurns}");
 
-                
                 // PLAYER DECISION
                 foreach (Player player in players)
                 {
