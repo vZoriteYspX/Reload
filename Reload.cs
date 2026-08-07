@@ -7,7 +7,7 @@ namespace ReloadGame
     {
         static void Main(string[] args)
         {   
-            Start start = new();
+            new Start();
         }
     }
 
@@ -31,7 +31,7 @@ namespace ReloadGame
                 catch (Exception e)
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" when starting the game.");
+                    Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to start the game.");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{e.Message}");
                     continue;
@@ -51,7 +51,7 @@ namespace ReloadGame
                     {
                         Console.WriteLine("----------------------------");
                         Console.WriteLine("Oops, something went wrong with the game.");
-                        Console.WriteLine("----------------------------");
+                        Console.WriteLine("----------------------------");   
                     }
 
                     break;
@@ -59,14 +59,14 @@ namespace ReloadGame
 
                 else if (startInput == 'N')
                 {   
-                    Console.WriteLine("See you again next time!");
+                    Console.WriteLine("All right, see you again next time!");
                     break;
                 }
                     
                 else
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" when starting the game.");
+                    Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to start the game.");
                     Console.WriteLine("----------------------------");
                 }
             }
@@ -225,6 +225,64 @@ namespace ReloadGame
                     this.startGame = false;
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"{players[0].playerName} wins the game!");
+
+
+                    //  REMATCHES
+                    while (true)
+                    {
+                        char startInput;
+
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine("Would you like to play another game? [Y / N]");
+
+                        try
+                        {
+                            startInput = Convert.ToChar((Console.ReadLine() ?? "").ToUpper());
+                        }
+
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to restart the game.");
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine($"{e.Message}");
+                            continue;
+                        }
+
+                        if (startInput == 'Y')
+                        {
+                            Console.WriteLine("Have fun! You are now proceeding to the game's setup.");
+                            Console.WriteLine("----------------------------");
+
+                            try
+                            {
+                                Gameplay gameStart = new(true);
+                            }
+                                
+                            catch
+                            {
+                                Console.WriteLine("----------------------------");
+                                Console.WriteLine("Oops, something went wrong with the game.");
+                                Console.WriteLine("----------------------------");   
+                            }
+
+                            break;
+                        }
+
+                        else if (startInput == 'N')
+                        {   
+                            Console.WriteLine("All right, see you again next time!");
+                            break;
+                        }
+                            
+                        else
+                        {
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to restart the game.");
+                            Console.WriteLine("----------------------------");
+                        }
+                    }
+
                     break;
                 }
                         
@@ -676,10 +734,13 @@ namespace ReloadGame
         public Gameplay match;
         public Player? target;
         public string move;
+
+
+        //  MOVE PROCESSING (TARGETLESS MOVES)
         public AttackPhase(Gameplay match, string move) : this(match, null, move) { }
 
 
-        //  MOVE PROCESSING
+        //  MOVE PROCESSING (MOVES WITH TARGETING)
         public AttackPhase(Gameplay match, Player? target, string move)
         {   
             this.match = match;
@@ -699,7 +760,7 @@ namespace ReloadGame
                     {   
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHitHoming) && defHitHoming == "TELEPORT")
+                            if (match.attributesDefDict[usernameDef] == "TELEPORT")
                                 match.attributesFourDict[usernameFour] = "ELIMINATED";
 
                             else
@@ -725,7 +786,7 @@ namespace ReloadGame
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defNuke) && defNuke != "NUKE BARRIER")
+                            if (match.attributesDefDict[usernameDef] != "NUKE BARRIER")
                                 match.eliminated.Add(usernameDef);
                         }
                                 
@@ -754,7 +815,7 @@ namespace ReloadGame
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defABomb) && defABomb != "VANISH")
+                            if (match.attributesDefDict[usernameDef] != "VANISH")
                                 match.eliminated.Add(usernameDef);
                         }
 
@@ -780,7 +841,7 @@ namespace ReloadGame
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHoming) && defHoming == "TELEPORT")
+                            if (match.attributesDefDict[usernameDef] != "VANISH" || match.attributesDefDict[usernameDef] != "SHIELD" || match.attributesDefDict[usernameDef] != "BARRIER")
                                 match.eliminated.Add(usernameDef);
 
                             else
@@ -800,10 +861,10 @@ namespace ReloadGame
                     {
                         foreach (Player usernameDef in match.attributesDefDict.Keys)
                         {   
-                            if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHit1) && defHit1 == "TELEPORT")
+                            if (match.attributesDefDict[usernameDef] == "TELEPORT")
                                 match.attributesTwoDict[usernameTwo] = "ELIMINATED";
 
-                            else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defHit2) && defHit2 == "VANISH")
+                            else if (match.attributesDefDict[usernameDef] != "SHIELD" || match.attributesDefDict[usernameDef] != "BARRIER")
                                 match.eliminated.Add(usernameDef);
 
                             else
