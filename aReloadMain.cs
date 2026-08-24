@@ -67,6 +67,7 @@ public class Start
             else if (startInput == 'N')
             {   
                 Console.WriteLine("All right, see you again next time!");
+                Console.WriteLine("----------------------------");
                 break;
             }
                 
@@ -74,7 +75,6 @@ public class Start
             {
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to start the game.");
-                Console.WriteLine("----------------------------");
             }
         }
     }
