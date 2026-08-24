@@ -26,31 +26,31 @@ public class AttackPhase
         if (targetMoves && target is null)
             throw new InvalidOperationException($"'{move}' requires a target, but none was provided.");
 
-        foreach (Player usernameFour in match.attributesFourDict.Keys)
+        foreach (Player usernameFour in match.fourChDict.Keys)
         {
             switch (move)
             {
                 case "HIT-HOMING":
                 {   
-                    foreach (Player usernameDef in match.attributesDefDict.Keys)
+                    foreach (Player usernameDef in match.defChDict.Keys)
                     {   
-                        if (match.attributesDefDict[usernameDef] == "TELEPORT")
-                            match.attributesFourDict[usernameFour] = "ELIMINATED";
+                        if (match.defChDict[usernameDef] == "TELEPORT")
+                            match.fourChDict[usernameFour] = "ELIMINATED";
 
                         else
                             match.eliminated.Add(usernameDef);
                     }
 
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
-                    foreach (Player usernameOne in match.attributesOneDict.Keys)
+                    foreach (Player usernameOne in match.oneChDict.Keys)
                         match.eliminated.Add(usernameOne);
 
-                    foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+                    foreach (Player usernameTwo in match.twoChDict.Keys)
                         match.eliminated.Add(usernameTwo);
                         
-                    foreach (Player usernameThree in match.attributesThreeDict.Keys)
+                    foreach (Player usernameThree in match.threeChDict.Keys)
                         match.eliminated.Add(usernameThree);
 
                     break;
@@ -58,22 +58,22 @@ public class AttackPhase
 
                 case "NUKE":
                 {
-                    foreach (Player usernameDef in match.attributesDefDict.Keys)
+                    foreach (Player usernameDef in match.defChDict.Keys)
                     {   
-                        if (match.attributesDefDict[usernameDef] != "NUKE BARRIER")
+                        if (match.defChDict[usernameDef] != "NUKE BARRIER")
                             match.eliminated.Add(usernameDef);
                     }
                             
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
-                    foreach (Player usernameOne in match.attributesOneDict.Keys)
+                    foreach (Player usernameOne in match.oneChDict.Keys)
                         match.eliminated.Add(usernameOne);
 
-                    foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+                    foreach (Player usernameTwo in match.twoChDict.Keys)
                         match.eliminated.Add(usernameTwo);
                         
-                    foreach (Player usernameThree in match.attributesThreeDict.Keys)
+                    foreach (Player usernameThree in match.threeChDict.Keys)
                         match.eliminated.Add(usernameThree);
 
                     break;
@@ -81,25 +81,25 @@ public class AttackPhase
             }
         }
 
-        foreach (Player usernameThree in match.attributesThreeDict.Keys)
+        foreach (Player usernameThree in match.threeChDict.Keys)
         {
             switch (move)
             {
                 case "A-BOMB":
                 {
-                    foreach (Player usernameDef in match.attributesDefDict.Keys)
+                    foreach (Player usernameDef in match.defChDict.Keys)
                     {   
-                        if (match.attributesDefDict[usernameDef] != "VANISH")
+                        if (match.defChDict[usernameDef] != "VANISH")
                             match.eliminated.Add(usernameDef);
                     }
 
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
-                    foreach (Player usernameOne in match.attributesOneDict.Keys)
+                    foreach (Player usernameOne in match.oneChDict.Keys)
                         match.eliminated.Add(usernameOne);
 
-                    foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+                    foreach (Player usernameTwo in match.twoChDict.Keys)
                         match.eliminated.Add(usernameTwo);
 
                     break;
@@ -107,25 +107,22 @@ public class AttackPhase
             }
         }
 
-        foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+        foreach (Player usernameTwo in match.twoChDict.Keys)
         {
             switch (move)
             {
                 case "HOMING":
                 {
-                    foreach (Player usernameDef in match.attributesDefDict.Keys)
+                    foreach (Player usernameDef in match.defChDict.Keys)
                     {   
-                        if (match.attributesDefDict[usernameDef] != "VANISH" || match.attributesDefDict[usernameDef] != "SHIELD" || match.attributesDefDict[usernameDef] != "BARRIER")
+                        if (match.defChDict[usernameDef] != "VANISH" && match.defChDict[usernameDef] != "SHIELD" && match.defChDict[usernameDef] != "BARRIER")
                             match.eliminated.Add(usernameDef);
-
-                        else
-                            continue;
                     }
 
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
-                    foreach (Player usernameOne in match.attributesOneDict.Keys)
+                    foreach (Player usernameOne in match.oneChDict.Keys)
                         match.eliminated.Add(usernameOne);
 
                     break;
@@ -133,22 +130,19 @@ public class AttackPhase
 
                 case "HIT":
                 {
-                    foreach (Player usernameDef in match.attributesDefDict.Keys)
+                    foreach (Player usernameDef in match.defChDict.Keys)
                     {   
-                        if (match.attributesDefDict[usernameDef] == "TELEPORT")
-                            match.attributesTwoDict[usernameTwo] = "ELIMINATED";
+                        if (match.defChDict[usernameDef] == "TELEPORT")
+                            match.twoChDict[usernameTwo] = "ELIMINATED";
 
-                        else if (match.attributesDefDict[usernameDef] != "SHIELD" || match.attributesDefDict[usernameDef] != "BARRIER")
+                        else if (match.defChDict[usernameDef] != "SHIELD" && match.defChDict[usernameDef] != "BARRIER")
                             match.eliminated.Add(usernameDef);
-
-                        else
-                            continue;
                     }
 
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
-                    foreach (Player usernameOne in match.attributesOneDict.Keys)
+                    foreach (Player usernameOne in match.oneChDict.Keys)
                         match.eliminated.Add(usernameOne);
 
                     break;
@@ -156,36 +150,31 @@ public class AttackPhase
             }
         }
 
-        foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+        foreach (Player usernameTwo in match.twoChDict.Keys)
         {
             switch (move, targetPlayer)
             {
                 case ("DX-BANG-BANG", _):
                 {
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDXBangBang) && (defDXBangBang == "CHARGE" || defDXBangBang == "SHIELD" || defDXBangBang == "BARRIER" || defDXBangBang == "NUKE BARRIER" || defDXBangBang == "BANG" || defDXBangBang == "MINI-HO" || defDXBangBang == "MINI-HIT" || defDXBangBang == "DX" || defDXBangBang == "BANG-BANG"))
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defDXBangBang) && (defDXBangBang == "CHARGE" || defDXBangBang == "SHIELD" || defDXBangBang == "BARRIER" || defDXBangBang == "NUKE BARRIER" || defDXBangBang == "BANG" || defDXBangBang == "MINI-HO" || defDXBangBang == "MINI-HIT" || defDXBangBang == "DX" || defDXBangBang == "BANG-BANG"))
                         match.eliminated.Add(targetPlayer!);
-
-                    else
-                        continue;
 
                     break;
                 }
             }
         }
 
-        foreach (Player usernameOne in match.attributesOneDict.Keys)
+        foreach (Player usernameOne in match.oneChDict.Keys)
         {           
             switch (move, targetPlayer)
             {
                 case ("MINI-HO", _):
                 {
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHo) && (defMiniHo == "CHARGE" || defMiniHo == "TELEPORT" || defMiniHo == "NUKE BARRIER"))
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defMiniHo) && (defMiniHo == "CHARGE" || defMiniHo == "TELEPORT" || defMiniHo == "NUKE BARRIER"))
                         match.eliminated.Add(targetPlayer!);
 
-                    else
-                        continue;
                     
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
                     break;
@@ -193,13 +182,13 @@ public class AttackPhase
 
                 case ("MINI-HIT", _):
                 {
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit1) && defMiniHit1 == "TELEPORT")
-                        match.attributesOneDict[usernameOne] = "ELIMINATED";
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defMiniHit1) && defMiniHit1 == "TELEPORT")
+                        match.oneChDict[usernameOne] = "ELIMINATED";
 
-                    else if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defMiniHit2) && (defMiniHit2 == "CHARGE" || defMiniHit2 == "VANISH" || defMiniHit2 == "NUKE BARRIER"))
+                    else if (match.defChDict.TryGetValue(targetPlayer!, out var defMiniHit2) && (defMiniHit2 == "CHARGE" || defMiniHit2 == "VANISH" || defMiniHit2 == "NUKE BARRIER"))
                         match.eliminated.Add(targetPlayer!);
 
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
                     break;
@@ -207,10 +196,10 @@ public class AttackPhase
 
                 case ("DX", _):
                 {
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defDX) && (defDX == "CHARGE" || defDX == "SHIELD" || defDX == "NUKE BARRIER"))
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defDX) && (defDX == "CHARGE" || defDX == "SHIELD" || defDX == "NUKE BARRIER"))
                         match.eliminated.Add(targetPlayer!);
                     
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
                     break;
@@ -218,10 +207,10 @@ public class AttackPhase
                 
                 case ("BANG-BANG", _):
                 {
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBangBang) && (defBangBang == "CHARGE" || defBangBang == "BARRIER" || defBangBang == "NUKE BARRIER"))
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defBangBang) && (defBangBang == "CHARGE" || defBangBang == "BARRIER" || defBangBang == "NUKE BARRIER"))
                         match.eliminated.Add(targetPlayer!);
                     
-                    foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+                    foreach (Player usernameHalf in match.halfChDict.Keys)
                         match.eliminated.Add(usernameHalf);
                     
                     break;
@@ -229,12 +218,12 @@ public class AttackPhase
             }
         }
 
-        foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+        foreach (Player usernameHalf in match.halfChDict.Keys)
         {  
             switch(move, targetPlayer!)
             {
                 case ("BANG", _):
-                    if (match.attributesDefDict.TryGetValue(targetPlayer!, out var defBang) && (defBang == "CHARGE" || defBang == "BARRIER" || defBang == "NUKE BARRIER"))
+                    if (match.defChDict.TryGetValue(targetPlayer!, out var defBang) && (defBang == "CHARGE" || defBang == "BARRIER" || defBang == "NUKE BARRIER"))
                         match.eliminated.Add(targetPlayer!);
                 
                 break;
@@ -251,47 +240,47 @@ public class AttackPhase
         
         match.playerForfeit.Clear();
             
-        foreach (Player usernameDef in match.attributesDefDict.Keys)
+        foreach (Player usernameDef in match.defChDict.Keys)
         {
-            if (match.attributesDefDict[usernameDef] == "ELIMINATED")
+            if (match.defChDict[usernameDef] == "ELIMINATED")
                 match.players.Remove(usernameDef);
         }
 
-        match.attributesDefDict.Clear();
+        match.defChDict.Clear();
 
-        foreach (Player usernameHalf in match.attributesHalfDict.Keys)
+        foreach (Player usernameHalf in match.halfChDict.Keys)
         {
-            if (match.attributesHalfDict[usernameHalf] == "ELIMINATED")
+            if (match.halfChDict[usernameHalf] == "ELIMINATED")
                 match.players.Remove(usernameHalf);
             
         }
 
-        match.attributesHalfDict.Clear();
+        match.halfChDict.Clear();
 
-        foreach (Player usernameOne in match.attributesOneDict.Keys)
+        foreach (Player usernameOne in match.oneChDict.Keys)
         {
-            if (match.attributesOneDict[usernameOne] == "ELIMINATED")
+            if (match.oneChDict[usernameOne] == "ELIMINATED")
                 match.players.Remove(usernameOne);                
         }
 
-        match.attributesOneDict.Clear();
+        match.oneChDict.Clear();
 
-        foreach (Player usernameTwo in match.attributesTwoDict.Keys)
+        foreach (Player usernameTwo in match.twoChDict.Keys)
         {
-            if (match.attributesTwoDict[usernameTwo] == "ELIMINATED")
+            if (match.twoChDict[usernameTwo] == "ELIMINATED")
                 match.players.Remove(usernameTwo);
         }
 
-        match.attributesTwoDict.Clear();
-        match.attributesThreeDict.Clear();
+        match.twoChDict.Clear();
+        match.threeChDict.Clear();
 
-        foreach (Player usernameFour in match.attributesFourDict.Keys)
+        foreach (Player usernameFour in match.fourChDict.Keys)
         {
-            if (match.attributesFourDict[usernameFour] == "ELIMINATED")
+            if (match.fourChDict[usernameFour] == "ELIMINATED")
                 match.players.Remove(usernameFour);
         }
 
-        match.attributesFourDict.Clear();
+        match.fourChDict.Clear();
 
         foreach (Player eliminatedPlayer in match.eliminated)
             match.players.Remove(eliminatedPlayer);
