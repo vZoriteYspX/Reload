@@ -11,20 +11,48 @@ public class Gameplay
 
     // TRACKERS
     public bool turnEnd = false;
+    //  Confirms that the turn has ended
+
     public int gameTurns = 1;
+    //  Keeps track of the game's turns
     public int decisionsTracker;
-    public int playerMovesTracker;
+    //  Checks if every player has made their move
+
+    public int movesPrint;
+    //  for loop substitute
+
     public List<string> movesMade = new();
+    //  The valid moves that each player has made is stored here
+
     public List<Player> players = new();
+    //  Players that are currently active are listed here
+
     public List<Player> eliminated = new();
+    //  Players that will be eliminated are stored here for elimination
+
     public Dictionary<Player, Player> targetsDict = new();
+    //  Players that are being targeted by another player goes here
+
     public Dictionary<Player, string> playerForfeit = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesDefDict = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesHalfDict = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesOneDict = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesTwoDict = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesThreeDict = new Dictionary<Player, string>();
-    public Dictionary<Player, string> attributesFourDict = new Dictionary<Player, string>();
+    //  Players who have forfeited the game goes here
+
+    public Dictionary<Player, string> defChDict = new Dictionary<Player, string>();
+    //  Defensive moves made by a player goes here
+
+    public Dictionary<Player, string> halfChDict = new Dictionary<Player, string>();
+    //  Half-charge moves made by a player goes here
+
+    public Dictionary<Player, string> oneChDict = new Dictionary<Player, string>();
+    //  One-charge moves made by a player goes here
+
+    public Dictionary<Player, string> twoChDict = new Dictionary<Player, string>();
+    //  Two-charge moves made by a player goes here
+
+    public Dictionary<Player, string> threeChDict = new Dictionary<Player, string>();
+    //  Three-charge moves made by a player goes here
+    
+    public Dictionary<Player, string> fourChDict = new Dictionary<Player, string>();
+    //  Four-charge moves made by a player goes here
 
 
     public Gameplay(bool startGame)
@@ -81,56 +109,66 @@ public class Gameplay
         //  ACTUAL GAMEPLAY
         while (this.startGame)
         {
+            //  RESETS DICTIONARIES AND TRACKERS
             movesMade.Clear();
             targetsDict.Clear();
             playerForfeit.Clear();
-            attributesDefDict.Clear();
-            attributesHalfDict.Clear();
-            attributesOneDict.Clear();
-            attributesTwoDict.Clear();
-            attributesThreeDict.Clear();
-            attributesFourDict.Clear();
-
+            defChDict.Clear();
+            halfChDict.Clear();
+            oneChDict.Clear();
+            twoChDict.Clear();
+            threeChDict.Clear();
+            fourChDict.Clear();
+            
             decisionsTracker = 0;
-            playerMovesTracker = 0;
+            movesPrint = 0;
             
             Console.WriteLine("----------------------------");
             Console.WriteLine($"Turn {gameTurns}");
 
             // PLAYER DECISION
-            foreach (Player player in players)
+            while(true)
             {
-                Console.WriteLine("----------------------------");
-                Console.WriteLine($"{player.playerName}, what will be your move?");
-                
-                try
+                foreach (Player player in players)
                 {
-                    string moveInput = (Console.ReadLine() ?? "").ToUpper();
-                    bool validTurn = player.TakeTurn(this, moveInput);
-
-                    if (validTurn)
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"{player.playerName}, what will be your move?");
+                    
+                    try
                     {
-                        decisionsTracker++;
-                        movesMade.Add(moveInput);
+                        string moveInput = (Console.ReadLine() ?? "").ToUpper();
+                        bool validTurn = player.TakeTurn(this, moveInput);
+                        
+                        if (validTurn)
+                        {
+                            decisionsTracker++;
+                            movesMade.Add(moveInput);
+                        }
+                        
+                        //  INVALID TURNS RESTARTS THE TURN, MAKES EVERYONE PISSED TOO
+                        else
+                            break;
+                    }
+
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine($"{e.Message}");
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine("An invalid input was received. Please input a valid move.");
                     }
                 }
 
-                catch (Exception e)
+                // ENDS TURN
+                if (decisionsTracker == players.Count)
                 {
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine($"{e.Message}");
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine("An invalid input was received. Please input a valid move.");
+                    turnEnd = true;
+                    break;
                 }
             }
 
 
-            // END OF A TURN
-            if (decisionsTracker == players.Count)
-                turnEnd = true;
-
-
-            // VALID TURNS
+            // VALID TURN
             if (turnEnd)
             {
                 gameTurns++;
@@ -138,8 +176,8 @@ public class Gameplay
                 Console.WriteLine("----------------------------");
                 foreach (Player player in players)
                 {
-                    player.EndTurn(this, movesMade[playerMovesTracker]);
-                    playerMovesTracker++;
+                    player.EndTurn(this, movesMade[movesPrint]);
+                    movesPrint++;
                 }
                 
                 AttackPhase.Elimination(this);
@@ -179,8 +217,8 @@ public class Gameplay
 
                     if (startInput == 'Y')
                     {
-                        Console.WriteLine("Have fun! You are now proceeding to the game's setup.");
                         Console.WriteLine("----------------------------");
+                        Console.WriteLine("Have fun! You are now proceeding to the game's setup.");
 
                         try
                         {
@@ -191,7 +229,6 @@ public class Gameplay
                         {
                             Console.WriteLine("----------------------------");
                             Console.WriteLine("Oops, something went wrong with the game.");
-                            Console.WriteLine("----------------------------");   
                         }
 
                         break;
@@ -200,6 +237,7 @@ public class Gameplay
                     else if (startInput == 'N')
                     {   
                         Console.WriteLine("All right, see you again next time!");
+                        Console.WriteLine("----------------------------");
                         break;
                     }
                         
@@ -207,16 +245,17 @@ public class Gameplay
                     {
                         Console.WriteLine("----------------------------");
                         Console.WriteLine("An invalid input was entered. Please input \"Y/y\" or \"N/n\" to restart the game.");
-                        Console.WriteLine("----------------------------");
                     }
                 }
 
                 break;
             }
-                    
+            
+
+            //  FAILSAFE IN CASE NO ONE WINS
             if (players.Count <= 1)
             {
-                this.startGame = false;
+                Console.WriteLine("----------------------------");
                 Console.WriteLine("No one won!");
                 break;
             }
