@@ -4,6 +4,12 @@ VSCode was used to install C# alongside the .NET Install Tool.
 
 -------------------------------------------------------  
 
+# Code-related FAQs
+
+WIP  
+
+-------------------------------------------------------  
+
 # Gameplay FAQs
 
 __What is the objective of the game?__  
