@@ -1,5 +1,4 @@
-# Reload
-
+# Charge
 __Overview__\
 Charge, also known as Reload, is a clapping game of unknown origins. Its first mention online was in 2022. However, its existence can go as far back as past 2015.
 
