@@ -1,6 +1,5 @@
-# Steps
+# How To Play Charge (as a clapping game in real life)
 
-__How to Play__  
 This will strictly outline the steps of the game in real life and NOT in the digitalized version.  
 
 -------------------------------------------------------  
