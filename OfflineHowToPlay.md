@@ -7,17 +7,17 @@ This will strictly outline the steps of the game in real life and NOT in the dig
 __[ Step 1 ]__  
 In real-life, Charge was played with two or more players. Said players will then form a circle (or face-to-face in the case of only two players).  
 
-Note: The game can be played while sitting or standing --- as long as the circumstances or the players allow it.  
+Note: The game can be played while sitting or standing --- for as long as the circumstances or the players allow it.  
 
 -------------------------------------------------------  
 
 __[ Step 2 ]__  
 Once a circle has been formed, the players will extend their arms outwards.  
 Two players:  
-Player 1's palms will be against Player 2's palms (Player 1's left palm to Player 2's right palm, Player 1's right palm to Player 2's left palm)  
+Player 1's palms will be placed against Player 2's palms. Everyone's fingers must be pointing up. (Player 1's left palm to Player 2's right palm, Player 1's right palm to Player 2's left palm)  
 
 Three or more players:  
-Each player's left palm will be against the right palm of the player on their left while their right palm will be against the left palm of the player on their right.  
+Each player's left palm will be against the right palm of the player on their left while their right palm will be against the left palm of the player on their right. Everyone's fingers must be pointing up.
 
 -------------------------------------------------------  
 
@@ -26,7 +26,7 @@ Once all of the players have their palms against one another, the players will c
 
 Notes:  
 Each instance of step 2 marks the start of a round, and the round ends when every player completes their action, and/or when the eliminated players are removed from the circle.  
-There isn't a name for step 3 so for the sake of convenience, it may be called "Round 0".  
+There isn't a name for step 3, so for the sake of convenience, it may and will be referred to as "Round 0".  
 The clapping action done in step 3 represents the single starting charge that every player gets at the start of each game.
 
 -------------------------------------------------------  
@@ -37,27 +37,27 @@ After step 2 has been repeated, the players are now free to make the defensive a
 Hand signs for each move:  
 
 - Zero-charge Moves
-  - Forfeit*: N/A (The player either explicitly says that they forfeit or they can simply walk away from the round.)
+  - Forfeit*: N/A (The player either explicitly says that they forfeit, or they can simply walk away from the round.)
   - Charge: The player claps for as long as the round has not ended
-  - Teleport: The player forms two finger-guns (the variant that includes one's index and middle finger) and points it towards their temples (The player's thumbs can be tucked in while performing this move. It is simply a matter of personal preference.)
+  - Teleport: The player forms two finger-guns (the variant that includes one's index and middle finger), and points it towards their temples (The player's thumbs can be tucked in while performing this move. It is simply a matter of personal preference.)
   - Vanish: The player covers their mouth with their hands (The player's fingers must be pointing up.)
-  - Shield: The player clenches their fists and forms an X-shape using their forearms
-  - Barrier: The player clenches their fists and forms two parallel vertical lines using their forearms
-  - Nuke Barrier: The player forms two finger-guns (the finger gun variant that includes one's index and middle finger) and forms two parallel vertical lines using their forearms
+  - Shield: The player clenches their fists and forms an X-shape using their forearms (The player's forearms must be pointing at a 10 o'clock position, and a 2 o'clock position.)
+  - Barrier: The player clenches their fists and forms two parallel lines using their forearms (The player's forearms must be pointing up.)
+  - Nuke Barrier: The player forms two finger-guns (the finger gun variant that includes one's index and middle finger) and forms two parallel lines using their forearms (The player's forearms must be pointing up.)
 
 - Half-charge Moves
   - D*: The player puts out one of their palm facing the ground, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
   - Bang: The player forms a regular (index finger only) finger gun on either hand, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
 
 - One-charge Moves
-  - Mini-Ho: The player strictly points with only their index finger, and targets a minimum of one player (This is unnecessary when there are only two people in the round.) (see also "Targeting" in the note below)
+  - Mini-Ho: The player shouts the name of the move, strictly points with only their index finger, and targets a minimum and maximum of one player (This is unnecessary when there are only two people in the round.) (see also "Targeting" in the note below)
   - Mini-Hit: Same as Mini-Ho
   - DX: The player puts out one their palms facing the ground while the other palm rests on top of the back of the other hand, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
   -   Split D: Same as D but the player has to cross their arms while aiming
   - Bang-Bang: The player forms two regular (index finger only) finger guns, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
     - (Split) Bang-Bang(-Bang...) and other variants*: The player crosses their arms while they add more fingers to their finger gun(s) for each "Bang" used, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
-  - D-Bang: The player puts out one of their palms facing the ground while a regular (index finger only) finger gun rests on top of the back of the other hand, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
-    - Split D-Bang(-Bang...) and other variants: Same as D for the D-component of the move and it's the same as "Bang" for the Bang-component of "Bang"
+  - D-Bang: The player puts out one of their palms facing the ground, rests a regular (index finger only) finger gun on top of the back of the other hand, and targets a minimum of one player and a maximum of two players (see "Targeting" in the note below)
+    - Split D-Bang(-Bang...) and other variants: Same as D for the D-component of the move and it's the same as "Bang" for the Bang-component of the move
   
 - Two-charge Moves
   -   Homing: N/A (spoken verbally)
@@ -82,32 +82,51 @@ Hand signs for each move:
 
 Hand gestures during the attack phase and elimination*:
 - Charge
-  - The player is removed from the circle when attacked by any offensive move
+  - T1: The player is removed from the circle when attacked by any offensive move
 
 - Teleport
-  - T1: The player jolts only one of their arms/hands for each "Bang" used against them (Moving the jolting hand down a bit for each Bang is optional and is only up to the player's preference)
-  - T2: The player brings one of their hands down when attacked by a one-charge move that is not Mini-Ho or Mini-Hit
-  - T3: The player brings two of their hands down when attacked by a two-charge move that is not Homing or does not begin with Mini-Ho
-  - T4: The player is removed from the circle when attacked by any charged move(s) that compiles to more than two charges, and does not begin with Hit or Mini-Hit
-  - T5: The player turns one of their hands into a finger gun (the variant that includes one's index and middle finger) and points at the attacker who used a move that contains the word Hit or Mini-Hit at the beginning of the move
+  - T1: The player jolts only one of their arms/hands for each "Bang" used against them (moving the jolting hand down a bit for each Bang is optional and is only up to the player's preference)
+  - T2: The player brings one of their arms down when attacked by
+    - C1: a half-charge move that is NOT Bang(?) OR
+    - C2: a one-charge move that is NOT Mini-Ho OR Mini-Hit
+  - T3: The player brings two of their arms down when attacked by a two-charge move that
+    - C1: does NOT begin with the word "Mini-Hit" OR
+    - C2: is NEITHER Hit NOR Homing OR
+    - C3: does NOT contain the word "Mini-Ho"
+  - T4: The player is removed from the circle when attacked by any charged move(s) that
+    - C1: compiles to more than two charges AND does NOT begin with the word "Mini-Hit" OR "Hit"
+  - T5: The player turns one of their hands into a finger gun (the variant that includes one's index and middle finger) and points at the attacker who used a charged move that contains the word "Mini-Hit" or "Hit" at the beginning of their move name
+    - T5a: When a move that begins with "Mini-Hit" is used against a player, the player brings one of their arms down when "Mini" is said, and then points said finger gun when "Hit" is said
+    - T5b: When a move contains a non-fatal move before the usage of Mini-Hit against a player, the player's arm that has not been brought down turns into a finger gun when "Mini-Hit" is said.
  
 - Vanish
   - T1: Same as Teleport's
-  - T2: The player brings one of their hands down when attacked by a one-charge move that is not Mini-Hit
-  - T3: The player brings two of their hands down when attacked by a two-charge move that is not Hit or does not begin with Mini-Hit, or by a single A-Bomb
-  - T4: The player is removed from the circle when attacked by any charged move(s) that compiles to more than two charges
+  - T2: The player brings one of their arms down when
+    - C1: attacked by a half-charged move that is NOT Bang(?)
+    - C2: attacked by a one-charged move that is NOT Mini-Hit
+  - T3: The player brings two of their arms down when attacked by a two-charge move that
+    - C1: does NOT contain the word "Mini-Hit" OR is Hit
+  - T4: The player is removed from the circle when attacked by any charged move(s) that
+  -   C1: compiles to more than two charges AND contains the word "Mini-Hit" OR the word "Hit"
 
 - Shield
   - T1: Same as Teleport's
-  - T2: The player brings one of their arms down when attacked by a one-charge move that is not DX
-  - T3: The player brings both of their arms down when attacked by one D
-  - T4: The player is removed from the circle when attacked by a D combined with any other move, by DX, or by any charged move(s) that compiles to more than two charges
+  - T2: The player brings one of their arms down when attacked by a one-charge move that is NOT DX
+  - T3: The player brings both of their arms down when
+    - C1: attacked by a single D
+    - C2: attacked by a two-charge move that does NOT contain the word "DX"
+  - T4: The player is removed from the circle when attacked by
+    - C1: a D combined with any other move OR
+    - C2: DX OR
+    - C3: any charged move(s) that compiles to more than two charges
  
 - Barrier
   - T1: The player pounds on their chest once and is removed from the circle when hit by any type of Bang or a single D(?)*
   - T2: The player brings one of their arms down when attacked by a one-charge move that does not contain a "Bang"
   - T3: The player brings two of their arms down when attacked by a two-charge move that does not contain a "Bang"
-  - T4: The player is removed from the circle when attacked by any offensive move that contains a "Bang", or by any charged move(s) that compiles to more than two charges
+  - T4: The player is removed from the circle when attacked by
+    - C1: any offensive move that contains a "Bang" OR
+    - C2: any charged move(s) that compiles to more than two charges
  
 - Nuke Barrier
   - T1: The player pounds on their chest once and is removed from the circle when hit by any type of offensive move that is not "Nuke"
