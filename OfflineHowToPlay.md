@@ -107,7 +107,7 @@ Hand gestures during the attack phase and elimination*:
   - T3: The player brings two of their arms down when attacked by a two-charge move that
     - C1: does NOT contain the word "Mini-Hit" OR is Hit
   - T4: The player is removed from the circle when attacked by any charged move(s) that
-  -   C1: compiles to more than two charges AND contains the word "Mini-Hit" OR the word "Hit"
+    -  C1: compiles to more than two charges AND contains the word "Mini-Hit" OR the word "Hit"
 
 - Shield
   - T1: Same as Teleport's
